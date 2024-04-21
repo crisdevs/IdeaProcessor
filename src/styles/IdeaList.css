@@ -33,6 +33,7 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    color: black;
   }
   
   .vote-section {
