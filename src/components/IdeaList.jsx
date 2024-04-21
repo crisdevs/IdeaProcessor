@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import '../styles/IdeaList.css';
-
 const IdeaList = () => {
   const [ideaList, setIdeaList] = useState([]);
+  const[ideaSubmitted, setIdeaSubmitted] = useState(false);
+  const [voteDisabled, setVoteDisabled] = useState(false);
   const [newIdeaText, setNewIdeaText] = useState('');
 
   const handleAddIdea = () => {
@@ -32,11 +33,18 @@ const IdeaList = () => {
             <span>{idea.text}</span>
             <div className="vote-section">
               <span>Votes: {idea.votes}</span>
-              <button onClick={() => handleVote(idea.id)}>Vote</button>
+              <button onClick={() => {
+                handleVote(idea.id);
+                setVoteDisabled(true);
+              }
+              }
+              disabled = {voteDisabled}
+              >Vote</button>
             </div>
           </li>
         ))}
       </ul>
+        {!ideaSubmitted &&
       <div className="add-idea">
         <input
           type="text"
@@ -44,10 +52,16 @@ const IdeaList = () => {
           onChange={(e) => setNewIdeaText(e.target.value)}
           placeholder="Enter new idea..."
         />
-        <button onClick={handleAddIdea}>Add an Idea</button>
+        <button onClick={() => {
+          handleAddIdea();
+          setIdeaSubmitted(true);
+        }}
+        >Add an Idea</button>
       </div>
+}
     </div>
   );
 };
 
 export default IdeaList;
+
